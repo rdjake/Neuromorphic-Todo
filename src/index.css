@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+   overflow: hidden;
+}
+
+@font-face {
+   font-family: "Nunito";
+   src: url("/Nunito-Regular.ttf");
+}
+@font-face {
+   font-family: "Nunito";
+   src: url("/Nunito-Bold.ttf");
+   font-weight: bold;
+}
+
+:root {
+   font-family: Nunito, Inter, Avenir, Helvetica, Arial, sans-serif;
+
+   color: #213547;
+   background-color: #d0e2f5;
+}
+
+*::-webkit-scrollbar {
+   width: 8px;
+}
+*::-webkit-scrollbar-track {
+   background: #0000;
+}
