@@ -8,8 +8,8 @@ const TodoItem = defineComponent({
       modelValue: { type: Object as PropType<ListItem> },
    },
    setup(_, { emit }) {
-      const check = (item: ListItem) => {
-         emit("update:modelValue", { ...item, checked: !item.checked });
+      const check = (item: ListItem | undefined) => {
+         if(item) emit("update:modelValue", { ...item, checked: !item.checked });
       };
 
       return { check, emit };
@@ -21,7 +21,7 @@ export default TodoItem;
 
 <template>
    <p
-      class="ml-6 mr-3 pl-4 pr-2 rounded-xl flex items-center relative hover:bg-selectedBg/25 focus-within:!bg-selectedBg"
+      v-if="modelValue" class="ml-6 mr-3 pl-4 pr-2 rounded-xl flex items-center relative hover:bg-selectedBg/25 focus-within:!bg-selectedBg"
    >
       <button
          :class="[

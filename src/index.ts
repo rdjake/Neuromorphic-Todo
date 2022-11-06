@@ -5,5 +5,5 @@ import App from "./App.vue";
 const app = createApp(App).mount("#root");
 
 window.onbeforeunload = function () {
-   document.cookie = JSON.stringify(app.lists);
+   document.cookie = JSON.stringify((app as any).lists);
 };
