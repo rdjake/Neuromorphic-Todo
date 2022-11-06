@@ -2,7 +2,7 @@
 
 Neuromorphic Todo - приложение для заметок, выполненное в необычном стиле «Неоморфизм».
 
-![image](https://user-images.githubusercontent.com/60819667/200176676-703b2c53-b0c9-4407-90cc-0f451fe10d51.png)
+![image](https://user-images.githubusercontent.com/60819667/200178619-af3538ae-2c0a-44f2-a7b5-7cacdc036599.png)
 
 ## Реализация
 
