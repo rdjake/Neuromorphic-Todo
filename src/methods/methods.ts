@@ -41,3 +41,11 @@ export function getSampleList() {
    }
    return [list1, list2];
 }
+
+
+export function saveLists(lists: List[]){
+   window.onbeforeunload = function () {
+      document.cookie = JSON.stringify(lists);
+   };
+   
+}

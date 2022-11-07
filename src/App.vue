@@ -1,6 +1,6 @@
 <script lang="ts">
 import { defineComponent, Ref, ref } from "vue";
-import { getSampleList } from "./methods/methods";
+import { getSampleList, saveLists } from "./methods/methods";
 import { List } from "./types/types";
 import NavBar from "./components/navbar.vue";
 import TodoList from "./components/todo-list.vue";
@@ -14,6 +14,8 @@ const App = defineComponent({
       const data = document.cookie ? JSON.parse(document.cookie) : getSampleList();
       const lists: Ref<List[]> = ref(data);
       const currentList: Ref<List | null> = ref(null);
+
+      saveLists(lists.value);
 
       return { lists, currentList };
    },
