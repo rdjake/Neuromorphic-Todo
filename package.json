@@ -3,7 +3,6 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
-  "homepage": "Neuromorphic-Todo",
   "scripts": {
     "dev": "vite",
     "build": "vue-tsc && vite build",
