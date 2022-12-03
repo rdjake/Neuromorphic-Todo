@@ -44,9 +44,11 @@ const NavBar = defineComponent({
 export default NavBar;
 </script>
 <template>
-   <nav class="flex flex-col pt-10 bg-bgBlue rounded-3xl select-none">
+   <nav
+      class="flex flex-col pt-10 bg-bgBlue rounded-3xl select-none h-screen md:h-[initial] overflow-y-scroll md:overflow-y-hidden"
+   >
       <div
-         class="h-20 mx-8 rounded-3xl flex justify-center items-center text-2xl text-textBlue shadow-neuro8"
+         class="min-h-[5rem] mx-8 rounded-3xl flex justify-center items-center text-2xl text-textBlue shadow-neuro8"
       >
          <span>NEUROMORPHIC</span>
       </div>
@@ -60,18 +62,22 @@ export default NavBar;
          <strong class="font-bold text-xl">Списки</strong>
       </div>
 
-      <draggable :list="lists" itemKey="id" :animation="300">
+      <draggable :list="lists" itemKey="id" :animation="300" handle=".handle" class="md:overflow-y-scroll">
          <template #item="{ element }">
             <div
                :class="[
-                  'flex  justify-between items-center text-left pl-8 pr-2 py-2 mx-4 rounded-xl cursor-move',
+                  'grid grid-cols-[1fr_2rem_2rem] justify-between items-center text-left pl-8 pr-2 py-2 mx-4 rounded-xl cursor-move',
                   element === currentList
                      ? 'bg-selectedBg'
                      : 'hover:bg-selectedBg/25',
                ]"
                @click="selectList(element)"
             >
-               <span>{{ element.name }}</span>
+               <span class="break-all">{{ element.name }}</span>
+               <button
+                  class="handle w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40 cursor-move select-none"
+                  v-text="'≡'"
+               />
                <button
                   class="w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40"
                   v-text="'&times;'"

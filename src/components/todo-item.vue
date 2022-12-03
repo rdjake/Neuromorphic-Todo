@@ -25,7 +25,7 @@ export default TodoItem;
    >
       <button
          :class="[
-            'ml-1 mr-3 w-8 h-8 rounded-full',
+            'mr-3 min-w-[2rem] h-8 rounded-full',
             modelValue.checked ? 'shadow-neuro3InsetOff' : 'shadow-neuro3',
          ]"
          @click="check(modelValue)"
@@ -42,7 +42,7 @@ export default TodoItem;
          ]"
       />
       <button
-         class="handle mr-3 w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40 select-none"
+         class="handle mr-3 w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40 cursor-move select-none"
          v-text="'≡'"
       />
       <button

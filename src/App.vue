@@ -25,8 +25,8 @@ export default App;
 </script>
 
 <template>
-   <div class="h-screen w-screen grid grid-cols-[300px_auto] p-3 text-textBlue">
-      <NavBar v-model:lists="lists" v-model:currentList="currentList" />
+   <div class="h-screen w-screen grid md:grid-cols-[300px_auto] gap-3 md:p-3 text-textBlue">
+      <NavBar :class="{'hidden md:block': currentList}" v-model:lists="lists" v-model:currentList="currentList" />
       <div class="flex justify-center">
          <TodoList v-model="currentList" />
       </div>

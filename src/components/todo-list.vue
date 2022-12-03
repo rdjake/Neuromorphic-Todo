@@ -48,10 +48,10 @@ export default TodoList;
       enter-active-class="transition duration-300"
       leave-active-class="transition duration-500"
    >
-      <article v-if="modelValue" class="w-1/2 bg-bgBlue rounded-3xl mt-10">
+      <article v-if="modelValue" class="list bg-bgBlue rounded-3xl mt-10">
          <nav class="relative flex justify-center p-7">
             <button
-               class="absolute left-9 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full text-2xl shadow-neuro5 active:shadow-neuro5Inset select-none"
+               class="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full text-2xl shadow-neuro5 active:shadow-neuro5Inset select-none"
                v-text="'+'"
                @click="addItem"
             />
@@ -61,7 +61,7 @@ export default TodoList;
                v-model="modelValue.name"
             />
             <button
-               class="absolute right-7 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full shadow-neuro5 text-2xl active:shadow-neuro5Inset select-none"
+               class="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full shadow-neuro5 text-2xl active:shadow-neuro5Inset select-none"
                v-text="'&times;'"
                @click="emit('update:modelValue', null)"
             />
@@ -85,3 +85,8 @@ export default TodoList;
       </article>
    </transition>
 </template>
+<style scoped>
+.list{
+   width: clamp(400px, 100%, 800px)
+}
+</style>
