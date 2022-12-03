@@ -19,7 +19,10 @@ Neuromorphic Todo - приложение для заметок, выполнен
 
 ## Детали
 * UI авторский и адаптирован для использования на мобильных устройстах
-<img src="https://your-image-url.type](https://user-images.githubusercontent.com/60819667/205435915-7b12d462-433f-4871-aafb-0bf87c1df7cd.png" width="600">
+<div>
+<img src="https://user-images.githubusercontent.com/60819667/205435915-7b12d462-433f-4871-aafb-0bf87c1df7cd.png" width="300">
+<img src="https://user-images.githubusercontent.com/60819667/205436323-40fd2571-ffb5-4d89-a500-ae0af00dbd79.png" width="300">
+ </div>
 
 
 * Все кнопки имеют неоморфичное поведение (при нажатии «продавливаются»)
