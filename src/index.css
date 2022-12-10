@@ -19,8 +19,31 @@ body {
 :root {
    font-family: Nunito, Inter, Avenir, Helvetica, Arial, sans-serif;
 
-   color: #213547;
-   background-color: #d0e2f5;
+   --bg-body: #d0e2f5;
+   --bg: #e3eefc;
+   --text: #687a90;
+   --text-faded: rgba(104, 122, 144, 0.5);
+   --bg-selected:#cbdef0;
+   --bg-selected-hover:rgba(203, 222, 240, 0.25);;
+
+   --shadow-dark: #c1cad6;
+   --shadow-light: #ffffff;
+   --shadow-dark-inset: #d3ddea;
+   --shadow-light-inset: #f3ffff;
+}
+
+:root :has(#theme[dark]) {
+   --bg-body: #1b2138;
+   --bg: #222d46;
+   --text: #d0e2f5;
+   --text-faded: rgba(208, 226, 245, 0.5);
+   --bg-selected:#141a30;
+   --bg-selected-hover: rgba(20, 26, 48, 0.25);;
+
+   --shadow-dark: #141b2a;
+   --shadow-light: #303f62;
+   --shadow-dark-inset: #182031;
+   --shadow-light-inset: #2c3b5b;
 }
 
 *::-webkit-scrollbar {

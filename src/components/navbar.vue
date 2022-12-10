@@ -1,7 +1,7 @@
 <script lang="ts">
-import { defineComponent, PropType } from "vue";
+import { computed, defineComponent, PropType, ref } from "vue";
 import { createList, generateNewListName } from "../methods/methods";
-import { List } from "../types/types";
+import { DraggableEvent, List } from "../types/types";
 import draggable from "vuedraggable";
 
 const NavBar = defineComponent({
@@ -37,7 +37,24 @@ const NavBar = defineComponent({
          emit("update:currentList", null);
       };
 
-      return { selectList, addList, deleteList };
+      const onListMoved = (event: DraggableEvent<List>) => {
+         if (!props.lists) return;
+         const { element, newIndex } = event.moved;
+         const syncedLists = props.lists.filter((x) => x !== element);
+         syncedLists.splice(newIndex, 0, element);
+         emit("update:lists", syncedLists);
+      };
+
+      const themeIcon = ref("moon");
+
+      const switchTheme = () => {
+         const theme = document.getElementById("theme");
+         theme?.toggleAttribute("dark");
+         themeIcon.value = theme?.hasAttribute("dark") ? "sun" : "moon";
+      };
+
+
+      return { selectList, addList, deleteList, onListMoved, switchTheme, themeIcon };
    },
 });
 
@@ -48,39 +65,47 @@ export default NavBar;
       class="flex flex-col pt-10 bg-bgBlue rounded-3xl select-none h-screen md:h-[initial] overflow-y-scroll md:overflow-y-hidden"
    >
       <div
-         class="min-h-[5rem] mx-8 rounded-3xl flex justify-center items-center text-2xl text-textBlue shadow-neuro8"
+         class="min-h-[5rem] mx-4 rounded-3xl flex justify-center items-center gap-2 text-2xl text-textBlue shadow-neuroLogo"
       >
          <span>NEUROMORPHIC</span>
+         <v-button id="theme" :iconType="themeIcon" @click="switchTheme" />
       </div>
-      <div class="mt-16 mb-4 mx-4 text-center relative">
-         <button
-            class="absolute left-7 top-1/2 -translate-y-1/2 w-8 h-8 rounded-full text-2xl shadow-neuro3 active:shadow-neuro3Inset"
-            v-text="'+'"
-            @click="addList"
-         />
-
+      <div
+         class="mt-16 mb-4 ml-12 mr-8 text-center flex items-center justify-between"
+      >
          <strong class="font-bold text-xl">Списки</strong>
+         <v-button iconType="plus" @click="addList" />
       </div>
 
-      <draggable :list="lists" itemKey="id" :animation="300" handle=".handle" class="md:overflow-y-scroll">
+      <draggable
+         :list="lists"
+         itemKey="id"
+         :animation="300"
+         handle=".handle"
+         class="md:overflow-y-scroll"
+         @change="onListMoved"
+      >
          <template #item="{ element }">
             <div
                :class="[
-                  'grid grid-cols-[1fr_2rem_2rem] justify-between items-center text-left pl-8 pr-2 py-2 mx-4 rounded-xl cursor-move',
+                  'grid grid-cols-[1fr_2rem_2rem] justify-between items-center text-left pl-6 pr-2 py-2 ml-6 mr-4 rounded-xl',
                   element === currentList
-                     ? 'bg-selectedBg'
-                     : 'hover:bg-selectedBg/25',
+                     ? 'bg-bgBlueSelected'
+                     : 'hover:bg-bgBlueSelectedHover',
                ]"
                @click="selectList(element)"
             >
                <span class="break-all">{{ element.name }}</span>
-               <button
-                  class="handle w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40 cursor-move select-none"
-                  v-text="'≡'"
+               <v-button
+                  iconType="handle"
+                  flat
+                  faded
+                  class="handle cursor-move select-none"
                />
-               <button
-                  class="w-8 h-8 rounded-full text-2xl active:shadow-neuro3Inset text-textBlue/40"
-                  v-text="'&times;'"
+               <v-button
+                  iconType="close"
+                  flat
+                  faded
                   @click.stop="deleteList(element.id)"
                />
             </div>

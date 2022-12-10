@@ -42,10 +42,14 @@ export function getSampleList() {
    return [list1, list2];
 }
 
-
 export function saveLists(lists: List[]){
-   window.onbeforeunload = function () {
-      document.cookie = JSON.stringify(lists);
-   };
-   
+   document.cookie = JSON.stringify(lists);   
+}
+
+export function loadLists(){
+   if(!document.cookie) return getSampleList();
+  
+   const cookie = JSON.parse(document.cookie);
+   if(!Array.isArray(cookie)) return getSampleList();
+   return cookie;
 }

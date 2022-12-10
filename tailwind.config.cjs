@@ -7,19 +7,22 @@ module.exports = {
   theme: {
     extend: {
       colors:{
-        bgBlue : '#e3eefc',
-        textBlue : '#687a90',
-        selectedBg: '#cbdef0',
+        bgBlue : 'var(--bg)',
+        bgBodyBlue: 'var(--bg-body)',
+        textBlue : 'var(--text)',
+        textBlueFaded: 'var(--text-faded)',
+        bgBlueSelected: 'var(--bg-selected)',
+        bgBlueSelectedHover: 'var(--bg-selected-hover)',
       },
       boxShadow: {
-          'neuro3': '3px 3px 6px #c1cad6, -3px -3px 6px #ffffff',
-          'neuro5': '5px 5px 10px #c1cad6, -5px -5px 10px #ffffff',
-          'neuro8': '8px 8px 16px #c1cad6, -8px -8px 16px #ffffff',
+          'neuro8': '3px 3px 6px var(--shadow-dark), -3px -3px 6px var(--shadow-light)',
+          'neuro12': '5px 5px 10px var(--shadow-dark), -5px -5px 10px var(--shadow-light)',
+          'neuroLogo': '8px 8px 16px var(--shadow-dark), -8px -8px 16px var(--shadow-light)',
 
-          'neuro3Inset': 'inset 3px 3px 6px #c1cad6, inset -3px -3px 6px #ffffff',
-          'neuro5Inset': 'inset 5px 5px 10px #c1cad6, inset -5px -5px 10px #ffffff',
+          'neuro8Inset': 'inset 3px 3px 6px var(--shadow-dark), inset -3px -3px 6px var(--shadow-light)',
+          'neuro12Inset': 'inset 5px 5px 10px var(--shadow-dark), inset -5px -5px 10px var(--shadow-light)',
 
-          'neuro3InsetOff': 'inset 3px 3px 6px #d3ddea, inset -3px -3px 6px #f3ffff'
+          'neuro8InsetOff': 'inset 3px 3px 6px var(--shadow-dark-inset), inset -3px -3px 6px var(--shadow-light-inset)'
         },
     },
   },

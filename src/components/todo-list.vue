@@ -1,5 +1,5 @@
 <script lang="ts">
-import { List, ListItem } from "../types/types";
+import { DraggableEvent, List, ListItem } from "../types/types";
 import { defineComponent, PropType } from "vue";
 import TodoItem from "./todo-item.vue";
 import { createListItem } from "../methods/methods";
@@ -20,11 +20,17 @@ const TodoList = defineComponent({
          props.modelValue.items = props.modelValue.items.filter(
             (x) => x.id !== id
          );
+         emit('update:modelValue', props.modelValue);
       };
 
       const addItem = () => {
          if (props.modelValue) props.modelValue.items.push(createListItem());
+         emit('update:modelValue', props.modelValue);
       };
+
+      const setListName = (event: Event) => {
+         emit('update:modelValue', {...props.modelValue, name: (event.target as HTMLInputElement).value});
+      }
 
       const getItemById = (id: string) =>
          props.modelValue?.items.find((x) => x.id === id) as ListItem;
@@ -32,9 +38,18 @@ const TodoList = defineComponent({
       const setItem = (item: ListItem) => {
          const target = getItemById(item.id);
          Object.assign(target, item);
+         emit('update:modelValue', props.modelValue);
       };
 
-      return { emit, addItem, deleteItem, getItemById, setItem };
+      const onListItemMoved = (event: DraggableEvent<ListItem>) => {
+         if (!props.modelValue) return;
+         const { element, newIndex } = event.moved;
+         const items = props.modelValue.items.filter((x) => x !== element);
+         items.splice(newIndex, 0, element);
+         emit("update:modelValue", {...props.modelValue, items});
+      };
+
+      return { emit, addItem, deleteItem, getItemById, setItem, onListItemMoved, setListName };
    },
 });
 
@@ -50,19 +65,22 @@ export default TodoList;
    >
       <article v-if="modelValue" class="list bg-bgBlue rounded-3xl mt-10">
          <nav class="relative flex justify-center p-7">
-            <button
-               class="absolute left-8 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full text-2xl shadow-neuro5 active:shadow-neuro5Inset select-none"
-               v-text="'+'"
+            <v-button
+               iconType="plus"
+               size="12"
+               class="absolute left-8 top-1/2 -translate-y-1/2 select-none"
                @click="addItem"
             />
             <input
                type="text"
                class="text-center text-xl font-bold bg-transparent outline-none"
                v-model="modelValue.name"
+               @change="setListName"
             />
-            <button
-               class="absolute right-6 top-1/2 -translate-y-1/2 w-12 h-12 rounded-full shadow-neuro5 text-2xl active:shadow-neuro5Inset select-none"
-               v-text="'&times;'"
+            <v-button
+               iconType="close"
+               size="12"
+               class="absolute right-6 top-1/2 -translate-y-1/2 select-none"
                @click="emit('update:modelValue', null)"
             />
          </nav>
@@ -72,6 +90,7 @@ export default TodoList;
             :animation="300"
             handle=".handle"
             class="max-h-[83vh] overflow-y-scroll scroller"
+            @change="onListItemMoved"
          >
             <template #item="{ element }">
                <TodoItem
