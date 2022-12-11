@@ -4,8 +4,9 @@ Neuromorphic Todo - приложение для заметок, выполнен
 
 [👉 Попробовать Neuromorphic Todo 👈](https://rdjake.github.io/Neuromorphic-Todo/)
 
+<i>Светлая тема</i>
+![image](https://user-images.githubusercontent.com/60819667/206917689-cceb2317-81b2-4e2b-8a47-df8e0094e6e8.png)
 
-![image](https://user-images.githubusercontent.com/60819667/200178619-af3538ae-2c0a-44f2-a7b5-7cacdc036599.png)
 
 ## Реализация
 
@@ -18,11 +19,19 @@ Neuromorphic Todo - приложение для заметок, выполнен
 А также пакеты UUID и VueDraggable
 
 ## Детали
+* Есть свелтая и темная темы, переключаются на кнопку с месяцем\солнцем.
+
+<i>Темная тема</i>
+![image](https://user-images.githubusercontent.com/60819667/206917762-0de61095-9254-4e3b-b5e3-47a62c3ae959.png)
+
 * UI авторский и адаптирован для использования на мобильных устройстах
 <div>
-<img src="https://user-images.githubusercontent.com/60819667/205435915-7b12d462-433f-4871-aafb-0bf87c1df7cd.png" width="300">
-<img src="https://user-images.githubusercontent.com/60819667/205436323-40fd2571-ffb5-4d89-a500-ae0af00dbd79.png" width="300">
+<img src="https://user-images.githubusercontent.com/60819667/206918327-b8df3ac4-f978-44c4-a0bc-bbd25ac67cfa.PNG" width="240">
+<img src="https://user-images.githubusercontent.com/60819667/206918330-d77991bc-1b73-4be7-b19a-ad005e61cc3c.PNG" width="240">
+<img src="https://user-images.githubusercontent.com/60819667/206918334-a2b0af07-c243-4c0a-adc3-9c77cf20683c.PNG" width="240">
+<img src="https://user-images.githubusercontent.com/60819667/206918331-6df5aaf8-cfe9-4975-bf4d-71db95e0668d.PNG" width="240">
  </div>
+
 
 
 * Все кнопки имеют неоморфичное поведение (при нажатии «продавливаются»)
