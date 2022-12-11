@@ -24,7 +24,8 @@ body {
    --text: #687a90;
    --text-faded: rgba(104, 122, 144, 0.5);
    --bg-selected:#cbdef0;
-   --bg-selected-hover:rgba(203, 222, 240, 0.25);;
+   --bg-selected-hover:rgba(203, 222, 240, 0.25);
+   --bg-selected-darker:rgb(183, 200, 216);
 
    --shadow-dark: #c1cad6;
    --shadow-light: #ffffff;
@@ -51,4 +52,13 @@ body {
 }
 *::-webkit-scrollbar-track {
    background: #0000;
+}
+
+.sortable-chosen{
+   /* opacity: 0; */
+}
+
+.sortable-ghost{
+   background: var(--bg-selected) !important;
+   opacity: 1;
 }

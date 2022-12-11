@@ -53,3 +53,7 @@ export function loadLists(){
    if(!Array.isArray(cookie)) return getSampleList();
    return cookie;
 }
+
+export function clearDragImage(event:any) {
+   event.dataTransfer?.setDragImage(new Image(), 0, 0);
+}

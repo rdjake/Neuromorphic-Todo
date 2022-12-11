@@ -14,7 +14,10 @@ const TodoItem = defineComponent({
       };
 
       const setText = (event: Event) => {
-         emit("update:modelValue", { ...props.modelValue, text: (event.target as HTMLInputElement).value });
+         emit("update:modelValue", {
+            ...props.modelValue,
+            text: (event.target as HTMLInputElement).value,
+         });
       };
 
       return { check, emit, setText };
@@ -38,12 +41,12 @@ export default TodoItem;
          placeholder="Новая заметка"
          v-model="modelValue.text"
          @change="setText"
-         :class="[
-            'grow ml-3 p-4 bg-transparent outline-none placeholder:text-textBlueFaded transition-all',
+         class="grow ml-3 p-4 bg-transparent outline-none placeholder:text-textBlueFaded transition-all"
+         :class="
             modelValue.checked
                ? 'text-textBlueFaded' + (modelValue.text ? ' line-through' : '')
-               : 'text-textBlue',
-         ]"
+               : 'text-textBlue'
+         "
       />
       <v-button
          iconType="handle"

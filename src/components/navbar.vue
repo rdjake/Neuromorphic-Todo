@@ -1,6 +1,10 @@
 <script lang="ts">
-import { computed, defineComponent, PropType, ref } from "vue";
-import { createList, generateNewListName } from "../methods/methods";
+import { defineComponent, PropType, ref } from "vue";
+import {
+   clearDragImage,
+   createList,
+   generateNewListName,
+} from "../methods/methods";
 import { DraggableEvent, List } from "../types/types";
 import draggable from "vuedraggable";
 
@@ -53,8 +57,15 @@ const NavBar = defineComponent({
          themeIcon.value = theme?.hasAttribute("dark") ? "sun" : "moon";
       };
 
-
-      return { selectList, addList, deleteList, onListMoved, switchTheme, themeIcon };
+      return {
+         selectList,
+         addList,
+         deleteList,
+         onListMoved,
+         switchTheme,
+         themeIcon,
+         clearDragImage,
+      };
    },
 });
 
@@ -62,7 +73,8 @@ export default NavBar;
 </script>
 <template>
    <nav
-      class="flex flex-col pt-10 bg-bgBlue rounded-3xl select-none h-screen md:h-[initial] overflow-y-scroll md:overflow-y-hidden"
+      class="flex flex-col pt-10 bg-bgBlue rounded-3xl select-none h-screen md:h-[initial] overflow-y-scroll md:overflow-y-hidden transition-opacity duration-500 md:opacity-100"
+      :class="{ 'opacity-0': currentList }"
    >
       <div
          class="min-h-[5rem] mx-4 rounded-3xl flex justify-center items-center gap-2 text-2xl text-textBlue shadow-neuroLogo"
@@ -84,15 +96,17 @@ export default NavBar;
          handle=".handle"
          class="md:overflow-y-scroll"
          @change="onListMoved"
+         @dragstart="clearDragImage"
       >
          <template #item="{ element }">
             <div
-               :class="[
-                  'grid grid-cols-[1fr_2rem_2rem] justify-between items-center text-left pl-6 pr-2 py-2 ml-6 mr-4 rounded-xl',
+               style="transform: none !important"
+               class="grid grid-cols-[1fr_2rem_2rem] justify-between items-center text-left pl-6 pr-2 py-2 ml-6 mr-4 rounded-xl"
+               :class="
                   element === currentList
                      ? 'bg-bgBlueSelected'
-                     : 'hover:bg-bgBlueSelectedHover',
-               ]"
+                     : 'hover:bg-bgBlueSelectedHover'
+               "
                @click="selectList(element)"
             >
                <span class="break-all">{{ element.name }}</span>

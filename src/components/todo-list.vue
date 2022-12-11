@@ -2,7 +2,7 @@
 import { DraggableEvent, List, ListItem } from "../types/types";
 import { defineComponent, PropType } from "vue";
 import TodoItem from "./todo-item.vue";
-import { createListItem } from "../methods/methods";
+import { clearDragImage, createListItem } from "../methods/methods";
 import draggable from "vuedraggable";
 
 const TodoList = defineComponent({
@@ -20,17 +20,20 @@ const TodoList = defineComponent({
          props.modelValue.items = props.modelValue.items.filter(
             (x) => x.id !== id
          );
-         emit('update:modelValue', props.modelValue);
+         emit("update:modelValue", props.modelValue);
       };
 
       const addItem = () => {
          if (props.modelValue) props.modelValue.items.push(createListItem());
-         emit('update:modelValue', props.modelValue);
+         emit("update:modelValue", props.modelValue);
       };
 
       const setListName = (event: Event) => {
-         emit('update:modelValue', {...props.modelValue, name: (event.target as HTMLInputElement).value});
-      }
+         emit("update:modelValue", {
+            ...props.modelValue,
+            name: (event.target as HTMLInputElement).value,
+         });
+      };
 
       const getItemById = (id: string) =>
          props.modelValue?.items.find((x) => x.id === id) as ListItem;
@@ -38,7 +41,7 @@ const TodoList = defineComponent({
       const setItem = (item: ListItem) => {
          const target = getItemById(item.id);
          Object.assign(target, item);
-         emit('update:modelValue', props.modelValue);
+         emit("update:modelValue", props.modelValue);
       };
 
       const onListItemMoved = (event: DraggableEvent<ListItem>) => {
@@ -46,10 +49,19 @@ const TodoList = defineComponent({
          const { element, newIndex } = event.moved;
          const items = props.modelValue.items.filter((x) => x !== element);
          items.splice(newIndex, 0, element);
-         emit("update:modelValue", {...props.modelValue, items});
+         emit("update:modelValue", { ...props.modelValue, items });
       };
 
-      return { emit, addItem, deleteItem, getItemById, setItem, onListItemMoved, setListName };
+      return {
+         emit,
+         addItem,
+         deleteItem,
+         getItemById,
+         setItem,
+         onListItemMoved,
+         setListName,
+         clearDragImage,
+      };
    },
 });
 
@@ -58,12 +70,16 @@ export default TodoList;
 
 <template>
    <transition
-      enter-from-class="translate-y-[150%] opacity-0"
-      leave-to-class="translate-y-[150%] opacity-0"
-      enter-active-class="transition duration-300"
+      enter-from-class="translate-y-[100%] opacity-0"
+      leave-to-class="translate-y-[100%] opacity-0"
+      enter-active-class="transition duration-500"
       leave-active-class="transition duration-500"
    >
-      <article v-if="modelValue" class="list bg-bgBlue rounded-3xl mt-10">
+      <article
+         v-if="modelValue"
+         class="bg-bgBlue rounded-3xl mt-10"
+         style="width: clamp(400px, 100%, 800px)"
+      >
          <nav class="relative flex justify-center p-7">
             <v-button
                iconType="plus"
@@ -91,6 +107,7 @@ export default TodoList;
             handle=".handle"
             class="max-h-[83vh] overflow-y-scroll scroller"
             @change="onListItemMoved"
+            @dragstart="clearDragImage"
          >
             <template #item="{ element }">
                <TodoItem
@@ -104,8 +121,3 @@ export default TodoList;
       </article>
    </transition>
 </template>
-<style scoped>
-.list{
-   width: clamp(400px, 100%, 800px)
-}
-</style>

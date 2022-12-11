@@ -10,7 +10,7 @@ const App = defineComponent({
       NavBar,
       TodoList,
    },
-   setup() { 
+   setup() {
       const lists: Ref<List[]> = ref(loadLists());
       const currentList: Ref<List | null> = ref(null);
 
@@ -22,10 +22,22 @@ export default App;
 </script>
 
 <template>
-   <div class="h-screen w-screen grid md:grid-cols-[300px_auto] gap-3 md:p-3 text-textBlue bg-bgBodyBlue">
-      <NavBar :class="{'hidden md:block': currentList}" v-model:lists="lists" @update:lists="saveLists" v-model:currentList="currentList"  />
-      <div class="flex justify-center">
-         <TodoList v-model="currentList" @update:modelValue="saveLists(lists)" />
+   <div
+      class="h-screen w-screen grid text-textBlue bg-bgBodyBlue md:grid-cols-[300px_auto] md:gap-3 md:p-3"
+   >
+      <NavBar
+         v-model:lists="lists"
+         @update:lists="saveLists"
+         v-model:currentList="currentList"
+      />
+      <div
+         class="flex justify-center h-screen md:h-[initial] md:translate-y-0 transition-transform duration-500"
+         :class="{ 'translate-y-[-100vh]': currentList }"
+      >
+         <TodoList
+            v-model="currentList"
+            @update:modelValue="saveLists(lists)"
+         />
       </div>
    </div>
 </template>

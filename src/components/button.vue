@@ -34,7 +34,7 @@ const ButtonComponentProps = {
 
 const ButtonComponent = defineFunctionalComponent(
    ButtonComponentProps,
-   (props,  attrs ) =>
+   (props, attrs) =>
       h(
          "button",
          {
@@ -90,8 +90,7 @@ const mapButtonIcons = (
                h(
                   "g",
                   {
-                     transform:
-                        "translate(1000,1000)",
+                     transform: "translate(1000,1000)",
                      stroke: "none",
                   },
                   [
